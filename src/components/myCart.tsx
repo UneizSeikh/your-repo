@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { incrementQuantity, decrementQuantity, removeFromCart } from "../redux/cart/cartSlice";
 import CartTable from "./cartTable";
+import CartSummary from "./cartSummary";
 
 const MyCart = () => {
   // Convert the cart items object to an array
@@ -18,6 +19,7 @@ const MyCart = () => {
           onRemove={(id) => dispatch(removeFromCart(id))}
         />
       </div>
+      <CartSummary items={cartItems}/>
     </div>
   );
 };
