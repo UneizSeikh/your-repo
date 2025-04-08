@@ -22,7 +22,7 @@ function App() {
 
       <Footer />
 
-      <ToastContainer position='top-right' autoClose={2000} />
+      <ToastContainer position='top-right' autoClose={1000} />
     </>
   )
 }
