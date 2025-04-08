@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { decrement } from '../redux/counter/counterSlice';
 
 interface CartItem {
   id: number;
@@ -17,6 +19,9 @@ interface CartTableProps {
 }
 
 const CartTable: React.FC<CartTableProps> = ({ items, onIncrement, onDecrement, onRemove }) => {
+
+  const dispatch = useDispatch();
+
   return (
     <table className="cart-table">
       <tbody>
@@ -25,7 +30,9 @@ const CartTable: React.FC<CartTableProps> = ({ items, onIncrement, onDecrement, 
           return (
             <tr key={item.id}>
               <td className="product-cell">
-                <img src={item.imageUrl} alt={item.name} />
+                <div className="img_wrp">
+                  <img src={item.imageUrl} alt={item.name} loading='lazy' />
+                </div>
                 <div>
                   <div className="product-name">{item.name}</div>
                   <div className="product-price">Price Per Piece ${item.price}</div>
@@ -59,6 +66,7 @@ const CartTable: React.FC<CartTableProps> = ({ items, onIncrement, onDecrement, 
                   className="remove-btn"
                   onClick={() => {
                     onRemove(item.id);
+                    dispatch(decrement());
                     toast.success("Item removed successfully");
                   }}
                 >
