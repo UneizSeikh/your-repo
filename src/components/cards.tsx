@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useDispatch } from "react-redux";
 import { decrement, increment } from "../redux/counter/counterSlice";
 import { toggleFavoriteCount } from "../redux/favorite/favoriteSlice";
+import { addToCart as addToCartAction } from '../redux/cart/cartSlice';
 import { toast } from "react-toastify";
 
 // Define the type for a product
@@ -134,7 +135,13 @@ const CardList: React.FC = () => {
                                 <div className="add_cart_btn" onClick={() => {
                                     dispatch(increment());
                                     addToCart(product.id);
-                                    toast.success("🛒 Added to Cart!")
+                                    toast.success("🛒 Added to Cart!");
+                                    dispatch(addToCartAction({
+                                        id: product.id,
+                                        name: product.title,
+                                        price: product.price,
+                                        imageUrl: product.image,
+                                      }));                                      
                                 }}>
                                     <i className="fas fa-bolt"></i> Add to Cart
                                 </div>

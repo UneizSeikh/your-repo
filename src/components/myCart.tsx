@@ -1,10 +1,25 @@
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../redux/store";
+import { incrementQuantity, decrementQuantity, removeFromCart } from "../redux/cart/cartSlice";
+import CartTable from "./cartTable";
 
 const MyCart = () => {
-  return (
-    <div>
-      MyCart
-    </div>
-  )
-}
+  // Convert the cart items object to an array
+  const cartItems = useSelector((state: RootState) => Object.values(state.cart.items));
+  const dispatch = useDispatch();
 
-export default MyCart
+  return (
+    <div className="mycart_detail_wrp">
+      <div className="cart_detail_wrp">
+        <CartTable
+          items={cartItems}
+          onIncrement={(id) => dispatch(incrementQuantity(id))}
+          onDecrement={(id) => dispatch(decrementQuantity(id))}
+          onRemove={(id) => dispatch(removeFromCart(id))}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default MyCart;
