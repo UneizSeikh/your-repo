@@ -1,7 +1,6 @@
-import ImageCarousel from './slider'
-import ProductPage from './productPage'
-import NewsLetter from './newsLetter'
-import Footer from './footer'
+import ImageCarousel from '../components/slider'
+import ProductPage from '../components/productPage'
+import NewsLetter from '../components/newsLetter'
 
 const Home = () => {
     return (
@@ -13,7 +12,6 @@ const Home = () => {
                 <ProductPage />
                 <NewsLetter />
             </div>
-            <Footer />
         </>
     )
 }

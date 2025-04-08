@@ -1,5 +1,7 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaPinterest } from "react-icons/fa";
 import Logo from "../assets/images/logo.png";
+import PlayStore from "../assets/images/Slice 8.png";
+import AppStore from "../assets/images/Slice 6.png"
 
 export default function Footer() {
     return (
@@ -42,7 +44,9 @@ export default function Footer() {
                     </div>
                     <div className="footer_widget" >
                         <h3 className="font-semibold mb-sm-2">Download App </h3>
-                        <div className="mt-4">
+                        <div className="download_sect">
+                            <img src={PlayStore} alt="STORE" loading="lazy" />
+                            <img src={AppStore} alt="STORE" loading="lazy" />
                         </div>
                     </div>
                 </div>
