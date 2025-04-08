@@ -55,9 +55,16 @@ const CartTable: React.FC<CartTableProps> = ({ items, onIncrement, onDecrement, 
               </td>
               <td>
                 <div className="table_head">Action</div>
-                <button className="remove-btn" onClick={() => onRemove(item.id)}>
+                <button
+                  className="remove-btn"
+                  onClick={() => {
+                    onRemove(item.id);
+                    toast.success("Item removed successfully");
+                  }}
+                >
                   Remove
                 </button>
+
               </td>
             </tr>
           );
