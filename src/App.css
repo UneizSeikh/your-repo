@@ -669,6 +669,7 @@ i.fas.fa-heart {
 
 .cart_counter .icon_wrp i {
   color: rgb(15, 62, 88);
+  font-weight: 600;
 }
 
 /* Cart Page */

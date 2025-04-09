@@ -5,7 +5,6 @@ import NewsLetter from '../components/newsLetter'
 const Home = () => {
     return (
         <>
-            {/* <Navbar/> */}
             <div className="home-page"  >
                 <ImageCarousel />
 
