@@ -42,7 +42,7 @@ const categories = [
     subcategories: ["Fiction", "Non-fiction", "Comics", "Education", "Biographies"],
   },
   {
-    name: "Beauty",
+    name: "Beauty & Cosmetics",
     image: beautyImg,
     subcategories: ["Makeup", "Skincare", "Haircare", "Fragrances", "Tools"],
   },

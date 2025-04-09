@@ -9,7 +9,6 @@ export interface CartItem {
     quantity: number;
 }
 
-
 interface CartState {
     items: Record<number, CartItem>;
 }
@@ -22,7 +21,15 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state, action: PayloadAction<{ id: number; name: string; price: number; imageUrl: string }>) => {
+        addToCart: (
+            state,
+            action: PayloadAction<{
+                id: number;
+                name: string;
+                price: number;
+                imageUrl: string;
+            }>
+        ) => {
             const item = state.items[action.payload.id];
             if (item) {
                 item.quantity += 1;
@@ -50,8 +57,30 @@ const cartSlice = createSlice({
                 delete state.items[action.payload];
             }
         },
+
+        // ✅ New reducer: update quantity directly
+        updateQuantity: (
+            state,
+            action: PayloadAction<{ id: number; quantity: number }>
+        ) => {
+            const item = state.items[action.payload.id];
+            if (item) {
+                if (action.payload.quantity > 0) {
+                    item.quantity = action.payload.quantity;
+                } else {
+                    delete state.items[action.payload.id];
+                }
+            }
+        },
     },
 });
 
-export const { addToCart, removeFromCart, incrementQuantity, decrementQuantity } = cartSlice.actions;
+export const {
+    addToCart,
+    removeFromCart,
+    incrementQuantity,
+    decrementQuantity,
+    updateQuantity, // ✅ Export it here
+} = cartSlice.actions;
+
 export default cartSlice.reducer;
