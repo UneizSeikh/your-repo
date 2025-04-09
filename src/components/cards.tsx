@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"; // ✅ import useLocation
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useDispatch } from "react-redux";
-import { decrement, increment } from "../redux/counter/counterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { increment, decrement } from "../redux/counter/counterSlice";
 import { toggleFavoriteCount } from "../redux/favorite/favoriteSlice";
-import { addToCart as addToCartAction } from '../redux/cart/cartSlice';
+import {
+    addToCart as addToCartAction,
+    removeFromCart,
+    updateQuantity,
+} from "../redux/cart/cartSlice";
 import { toast } from "react-toastify";
+import { RootState } from "../redux/store";
 
-// Define the type for a product
 interface Product {
     id: number;
     title: string;
@@ -16,17 +21,19 @@ interface Product {
     image: string;
 }
 
-// Define the types for state
 type Favorites = Record<number, boolean>;
-type CartState = Record<number, number>; // Tracks quantity of each product
 
 const CardList: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [favorites, setFavorites] = useState<Favorites>({});
-    const [cart, setCart] = useState<CartState>({});
-    // const [iconChange, setIconChange] = useState(false);
-
     const [showSuccessFor, setShowSuccessFor] = useState<number[]>([]);
+    const cart = useSelector((state: RootState) => state.cart.items);
+    const dispatch = useDispatch();
+    const location = useLocation(); 
+
+    useEffect(() => {
+        setShowSuccessFor([]);
+    }, [location.pathname]);
 
     useEffect(() => {
         fetch("https://fakestoreapi.com/products")
@@ -35,23 +42,10 @@ const CardList: React.FC = () => {
             .catch((error) => console.error("Error fetching data:", error));
     }, []);
 
-
-    const dispatch = useDispatch();
-
-
-    // Toggle favorite (wishlist)
     const toggleFavorite = (id: number) => {
         setFavorites((prev) => ({
             ...prev,
             [id]: !prev[id],
-        }));
-    };
-
-    // // Add product to cart or increase quantity
-    const addToCart = (id: number) => {
-        setCart((prev) => ({
-            ...prev,
-            [id]: (prev[id] || 0) + 1,
         }));
     };
 
@@ -71,110 +65,113 @@ const CardList: React.FC = () => {
     return (
         <div className="slider-container">
             <Slider {...settings}>
-                {products.map((product) => (
-                    <div className="cards" key={product.id}>
-                        <div className="product-img-wrp">
-                            <img src={product.image} alt={product.title} loading="lazy" className="product-img" />
-                        </div>
-                        <div className="card-detail-wrp">
-                            <div className="p-name">{product.title}</div>
-                            <div className="p-price">From ${product.price}</div>
-                        </div>
-                        <div className="add-cart-button">
-                            {cart[product.id] !== undefined ? (
-                                <div className="cart_counter">
-                                    <div
-                                        className="icon_wrp"
-                                        onClick={() => {
-                                            let shouldDispatch = false;
+                {products.map((product) => {
+                    const cartItem = cart[product.id];
+                    const quantity = cartItem?.quantity || 0;
 
-                                            setCart((prev) => {
-                                                const currentQty = prev[product.id] || 1;
-                                                const newCart = { ...prev };
+                    return (
+                        <div className="cards" key={product.id}>
+                            <div className="product-img-wrp">
+                                <img
+                                    src={product.image}
+                                    alt={product.title}
+                                    loading="lazy"
+                                    className="product-img"
+                                />
+                            </div>
+                            <div className="card-detail-wrp">
+                                <div className="p-name">{product.title}</div>
+                                <div className="p-price">From ${product.price}</div>
+                            </div>
 
-                                                if (currentQty <= 1) {
-                                                    delete newCart[product.id];
-                                                    shouldDispatch = true; //  mark to dispatch after setCart
+                            <div className="add-cart-button">
+                                {quantity > 0 ? (
+                                    <div className="cart_counter">
+                                        <div
+                                            className="icon_wrp"
+                                            onClick={() => {
+                                                if (quantity <= 1) {
+                                                    dispatch(removeFromCart(product.id));
+                                                    dispatch(decrement());
+                                                    toast.error("Item removed from cart.");
                                                 } else {
-                                                    newCart[product.id] = currentQty - 1;
+                                                    dispatch(
+                                                        updateQuantity({
+                                                            id: product.id,
+                                                            quantity: quantity - 1,
+                                                        })
+                                                    );
                                                 }
+                                                setShowSuccessFor((prev) =>
+                                                    prev.filter((id) => id !== product.id)
+                                                );
+                                            }}
+                                        >
+                                            <i className="fas fa-trash-alt"></i>
+                                        </div>
 
-                                                return newCart;
-                                            });
+                                        <div className="counter_value">{quantity}</div>
 
-                                            //  this will always run AFTER setCart completes
-                                            if (shouldDispatch) {
-                                                dispatch(decrement());
-                                                toast.error("Item removed from cart.");
-                                            }
-                                            setShowSuccessFor((prev) => prev.filter(id => id !== product.id));
+                                        <div
+                                            className="icon_wrp"
+                                            onClick={() => {
+                                                dispatch(
+                                                    updateQuantity({
+                                                        id: product.id,
+                                                        quantity: quantity + 1,
+                                                    })
+                                                );
+                                            }}
+                                        >
+                                            <i className="far fa-plus"></i>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div
+                                        className="add_cart_btn"
+                                        onClick={() => {
+                                            dispatch(increment());
+                                            dispatch(
+                                                addToCartAction({
+                                                    id: product.id,
+                                                    name: product.title,
+                                                    price: product.price,
+                                                    imageUrl: product.image,
+                                                })
+                                            );
+                                            toast.success("🛒 Added to Cart!");
+                                            setShowSuccessFor((prev) =>
+                                                prev.includes(product.id) ? prev : [...prev, product.id]
+                                            );
                                         }}
                                     >
-
-                                        <i className="fas fa-trash-alt"></i>
-
-                                        {/* {iconChange === true
-                                            ?
-                                            <i className="fas fa-minus"> </i>
-                                            :
-                                            <i className="fas fa-trash-alt"></i>
-                                        } */}
+                                        <i className="fas fa-bolt"></i> Add to Cart
                                     </div>
+                                )}
+                            </div>
 
-                                    <div className="counter_value">{cart[product.id] || 0}</div>
-                                    <div className="icon_wrp" onClick={() => {
-                                        setCart((prev) => ({
-                                            ...prev,
-                                            [product.id]: (prev[product.id] || 0) + 1,
-                                        }));
-                                    }}>
-                                        <i className="far fa-plus"
-                                        // onClick={() => setIconChange(true)}
-                                        ></i>
-                                    </div>
-                                </div>
-                            ) : (
-
-                                <div className="add_cart_btn" onClick={() => {
-                                    dispatch(increment());
-                                    addToCart(product.id);
-                                    toast.success("🛒 Added to Cart!");
-                                    dispatch(addToCartAction({
-                                        id: product.id,
-                                        name: product.title,
-                                        price: product.price,
-                                        imageUrl: product.image,
-                                    }));
-
-                                    setShowSuccessFor((prev) => {
-                                        if (!prev.includes(product.id)) {
-                                            return [...prev, product.id];
-                                        }
-                                        return prev;
-                                    });
-                                }}
-                                >
-
-                                    <i className="fas fa-bolt"></i> Add to Cart
+                            {cart[product.id]?.quantity > 0 && (
+                                <div className="success_text">
+                                    <i className="fas fa-check-circle"></i> Added To Cart
                                 </div>
                             )}
-                        </div>
 
-                        {showSuccessFor.includes(product.id) && (
-                            <div className="success_text">
-                                <i className="fas fa-check-circle"></i> Added To Cart
+                            <div
+                                className="fav-icon"
+                                onClick={() => {
+                                    dispatch(toggleFavoriteCount(product.id));
+                                    toggleFavorite(product.id);
+                                }}
+                            >
+                                <i
+                                    className={
+                                        favorites[product.id] ? "fas fa-heart" : "far fa-heart"
+                                    }
+                                ></i>
                             </div>
-                        )}
-
-
-                        <div className="fav-icon" onClick={() => {
-                            dispatch(toggleFavoriteCount(product.id)); // update redux state
-                            toggleFavorite(product.id); // optional if you want local state too
-                        }} >
-                            <i className={favorites[product.id] ? "fas fa-heart" : "far fa-heart"}></i>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </Slider>
         </div>
     );
