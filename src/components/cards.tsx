@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
 import { increment, decrement } from "../redux/counter/counterSlice";
-import { toggleFavoriteCount } from "../redux/favorite/favoriteSlice";
+import { toggleFavorite } from "../redux/favorite/favoriteSlice";
 import {
     addToCart as addToCartAction,
     removeFromCart,
@@ -20,12 +20,10 @@ interface Product {
     image: string;
 }
 
-type Favorites = Record<number, boolean>;
-
 const CardList: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
-    const [favorites, setFavorites] = useState<Favorites>({});
     const cart = useSelector((state: RootState) => state.cart.items);
+    const favorites = useSelector((state: RootState) => state.favorite.items);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -34,13 +32,6 @@ const CardList: React.FC = () => {
             .then((data: Product[]) => setProducts(data))
             .catch((error) => console.error("Error fetching data:", error));
     }, []);
-
-    const toggleFavorite = (id: number) => {
-        setFavorites((prev) => ({
-            ...prev,
-            [id]: !prev[id],
-        }));
-    };
 
     const settings = {
         dots: true,
@@ -137,7 +128,6 @@ const CardList: React.FC = () => {
                                 )}
                             </div>
 
-
                             {quantity > 0 && (
                                 <div className="success_text">
                                     <i className="fas fa-check-circle"></i> Added To Cart
@@ -147,8 +137,14 @@ const CardList: React.FC = () => {
                             <div
                                 className="fav-icon"
                                 onClick={() => {
-                                    dispatch(toggleFavoriteCount(product.id));
-                                    toggleFavorite(product.id);
+                                    dispatch(
+                                        toggleFavorite({
+                                            id: product.id,
+                                            name: product.title,
+                                            price: product.price,
+                                            imageUrl: product.image,
+                                        })
+                                    );
                                 }}
                             >
                                 <i
@@ -157,6 +153,7 @@ const CardList: React.FC = () => {
                                     }
                                 ></i>
                             </div>
+
                         </div>
                     );
                 })}
