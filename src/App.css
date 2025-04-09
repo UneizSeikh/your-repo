@@ -34,6 +34,178 @@ nav.navbar {
 .logo img {
   width: 120px;
 }
+.search_categories_sec
+{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.categoreis_btn
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fd6500;
+  height: 43px;
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.categoreis_drop_wrp
+{
+  position: relative;
+}
+.categ_dropdown
+{
+  position: absolute;
+  top: 56px;
+  width: 280px;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transition: all ease-in 0.3s;
+  transform: translateY(20px);
+  border-radius: 6px;
+  box-shadow: rgb(221, 221, 221) 0px 0px 8px;
+  padding: 20px;
+  /* height: 300px;
+  overflow: auto; */
+}
+.categoreis_drop_wrp:hover .categ_dropdown
+{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* .categ_dropdown::-webkit-scrollbar {
+  width: .5px;
+}
+
+.categ_dropdown::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.categ_dropdown::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.categ_dropdown {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+} */
+
+
+
+.categories_list_wrp
+{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+.onhover_categ_list
+{
+  cursor: pointer;
+}
+.categ_list_wrp
+{
+  display: flex;
+  justify-content: start;
+  gap: 12px;
+  align-items: center;
+}
+
+.onhover_categ_list img 
+{
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+.categ_name
+{
+  font-size: 17px;
+  font-weight: 400;
+  color: rgb(74, 85, 104);
+  position: relative;
+  line-height: 20px;
+}
+.categ_name::before
+{
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 2px;
+  left: 1px;
+  top: 20px;
+  background: #009fbc;
+  transition: all ease-in 0.2s;
+}
+.onhover_categ_list:hover .categ_name::before
+{
+  width: 100%;
+}
+.onhover_categ_list .categ_list_wrp i.fas.fa-chevron-right {
+  margin-top: 4px;
+  margin-left: auto;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+/* another dropdown */
+
+.onhover_categ_box
+{
+  position: absolute;
+  left: 270px;
+  top: -20px;
+  width: 280px;
+  height: auto;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transition: all ease-in 0.3s;
+  transform: translateX(40px);
+  border-radius: 6px;
+  box-shadow: rgb(221, 221, 221) 0px 0px 8px;
+  padding: 16px 20px;
+}
+.onhover_categ_list:hover .onhover_categ_box
+{
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0px);
+}
+.onhover_categ_box .categ_headi
+{
+  font-size: 20px;
+  font-weight: 500;
+}
+.onhover_categ_box ul
+{
+  padding-left: 20px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.onhover_categ_box ul li a
+{
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(74, 85, 104);
+}
+.onhover_categ_box ul li:hover a
+{
+  color: #000;
+}
 
 .search_box {
   display: flex;

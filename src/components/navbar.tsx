@@ -3,6 +3,7 @@ import SearchIcon from "../assets/images/search-interface-symbol.png";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import CategoryDropdown from "./categoryDropdown";
 
 interface NavItemProps {
   count: number;
@@ -11,6 +12,7 @@ interface NavItemProps {
   path: string;
   emptyMessage: string;
 }
+
 
 const NavItem = ({ count, iconClass, label, path, emptyMessage }: NavItemProps) => {
   const navigate = useNavigate();
@@ -45,10 +47,22 @@ const Navbar = () => {
           <img src={Logo} alt="Logo" />
         </div>
 
-        <div className="search_box">
-          <input placeholder="Search for products, brands, and more" type="text" />
-          <div className="search_icon">
-            <img src={SearchIcon} alt="Search" />
+        <div className="search_categories_sec">
+          <div className="categoreis_drop_wrp">
+            <div className="categoreis_btn">
+              <i className="far fa-bars"></i>
+              All Categories
+            </div>
+
+            <CategoryDropdown/>
+         
+          </div>
+
+          <div className="search_box">
+            <input placeholder="Search for products, brands, and more" type="text" />
+            <div className="search_icon">
+              <img src={SearchIcon} alt="Search" />
+            </div>
           </div>
         </div>
 
