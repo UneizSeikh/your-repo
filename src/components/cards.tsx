@@ -97,7 +97,7 @@ const CardList: React.FC = () => {
                                                 }
                                             }}
                                         >
-                                            <i className="fas fa-trash-alt"></i>
+                                            <i className={quantity > 1 ? "far fa-minus" : "fas fa-trash-alt"}></i>
                                         </div>
 
                                         <div className="counter_value">{quantity}</div>
@@ -136,6 +136,7 @@ const CardList: React.FC = () => {
                                     </div>
                                 )}
                             </div>
+
 
                             {quantity > 0 && (
                                 <div className="success_text">
