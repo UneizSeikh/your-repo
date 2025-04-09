@@ -9,6 +9,14 @@ const MyCart = () => {
   const cartItems = useSelector((state: RootState) => Object.values(state.cart.items));
   const dispatch = useDispatch();
 
+  if (cartItems.length === 0) {
+    return (
+      <div className="wishlist empty">
+        <p>Your Cart is empty. Please add a product first. </p>
+      </div>
+    );
+  }
+
   return (
     <div className="mycart_detail_wrp">
       <div className="cart_detail_wrp">
