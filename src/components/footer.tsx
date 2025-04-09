@@ -2,8 +2,25 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaPinterest } from "react-icons/fa
 import Logo from "../assets/images/logo.png";
 import PlayStore from "../assets/images/playstore.svg";
 import AppStore from "../assets/images/appstore.svg"
+import { useEffect, useState } from "react";
+
 
 export default function Footer() {
+    // Inside your component:
+    const [showGoToTop, setShowGoToTop] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowGoToTop(window.scrollY > 200);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
         <footer className="footer" >
             <div className="container-sm mx-auto grid md:grid-cols-4 gap-8">
@@ -64,6 +81,20 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
+
+            {showGoToTop && (
+                <a
+                    href="#"
+                    className={`go_to_top_btn ${showGoToTop ? "show" : ""}`}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                >
+                    <i className="fas fa-chevron-up"></i>
+                </a>
+            )}
+
         </footer>
     );
 }
