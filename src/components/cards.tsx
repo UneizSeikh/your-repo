@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; // ✅ import useLocation
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -26,14 +25,8 @@ type Favorites = Record<number, boolean>;
 const CardList: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [favorites, setFavorites] = useState<Favorites>({});
-    const [showSuccessFor, setShowSuccessFor] = useState<number[]>([]);
     const cart = useSelector((state: RootState) => state.cart.items);
     const dispatch = useDispatch();
-    const location = useLocation(); 
-
-    useEffect(() => {
-        setShowSuccessFor([]);
-    }, [location.pathname]);
 
     useEffect(() => {
         fetch("https://fakestoreapi.com/products")
@@ -102,9 +95,6 @@ const CardList: React.FC = () => {
                                                         })
                                                     );
                                                 }
-                                                setShowSuccessFor((prev) =>
-                                                    prev.filter((id) => id !== product.id)
-                                                );
                                             }}
                                         >
                                             <i className="fas fa-trash-alt"></i>
@@ -140,9 +130,6 @@ const CardList: React.FC = () => {
                                                 })
                                             );
                                             toast.success("🛒 Added to Cart!");
-                                            setShowSuccessFor((prev) =>
-                                                prev.includes(product.id) ? prev : [...prev, product.id]
-                                            );
                                         }}
                                     >
                                         <i className="fas fa-bolt"></i> Add to Cart
@@ -150,7 +137,7 @@ const CardList: React.FC = () => {
                                 )}
                             </div>
 
-                            {cart[product.id]?.quantity > 0 && (
+                            {quantity > 0 && (
                                 <div className="success_text">
                                     <i className="fas fa-check-circle"></i> Added To Cart
                                 </div>
