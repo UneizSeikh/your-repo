@@ -8,6 +8,7 @@ body {
   box-sizing: border-box;
   background-color: #e7e7e7;
 }
+
 .home-page,
 .page_wrp {
   margin-top: 85px;
@@ -890,6 +891,18 @@ td.product-cell img:hover {
   height: fit-content;
 }
 
+.success_text {
+  margin-top: 10px;
+  color: green;
+  font-weight: 500;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  position: absolute;
+  bottom: 3px;
+}
+
 @media screen and (max-width: 1024px) {
 
   .footer_cont_wrp {
@@ -1174,21 +1187,22 @@ td.product-cell img:hover {
     height: 24px;
     font-size: 16px;
   }
+
   .Toastify__toast-container.Toastify__toast-container--top-right {
     padding: 8px;
   }
 }
 
 @media screen and (min-width: 1650px) {
-  .container-sm{
-    max-width: 1600px!important;
+  .container-sm {
+    max-width: 1600px !important;
   }
-  .home-page
-  {
+
+  .home-page {
     padding: 30px 60px 0px;
   }
-  .navbar
-  {
-    padding: 20px 60px!important;
+
+  .navbar {
+    padding: 20px 60px !important;
   }
 }

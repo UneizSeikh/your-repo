@@ -1,7 +1,7 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaPinterest } from "react-icons/fa";
 import Logo from "../assets/images/logo.png";
-import PlayStore from "../assets/images/Slice 8.png";
-import AppStore from "../assets/images/Slice 6.png"
+import PlayStore from "../assets/images/playstore.svg";
+import AppStore from "../assets/images/appstore.svg"
 
 export default function Footer() {
     return (
