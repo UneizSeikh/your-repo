@@ -8,7 +8,6 @@ body {
   box-sizing: border-box;
   background-color: #e7e7e7;
 }
-
 .home-page,
 .page_wrp {
   margin-top: 85px;
@@ -34,14 +33,14 @@ nav.navbar {
 .logo img {
   width: 120px;
 }
-.search_categories_sec
-{
+
+.search_categories_sec {
   display: flex;
   gap: 10px;
   align-items: center;
 }
-.categoreis_btn
-{
+
+.categoreis_btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,12 +54,12 @@ nav.navbar {
   font-weight: 500;
   cursor: pointer;
 }
-.categoreis_drop_wrp
-{
+
+.categoreis_drop_wrp {
   position: relative;
 }
-.categ_dropdown
-{
+
+.categ_dropdown {
   position: absolute;
   top: 56px;
   width: 280px;
@@ -75,8 +74,8 @@ nav.navbar {
   /* height: 300px;
   overflow: auto; */
 }
-.categoreis_drop_wrp:hover .categ_dropdown
-{
+
+.categoreis_drop_wrp:hover .categ_dropdown {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -102,41 +101,39 @@ nav.navbar {
 
 
 
-.categories_list_wrp
-{
+.categories_list_wrp {
   display: flex;
   flex-direction: column;
   gap: 24px;
   position: relative;
 }
-.onhover_categ_list
-{
+
+.onhover_categ_list {
   cursor: pointer;
 }
-.categ_list_wrp
-{
+
+.categ_list_wrp {
   display: flex;
   justify-content: start;
   gap: 12px;
   align-items: center;
 }
 
-.onhover_categ_list img 
-{
+.onhover_categ_list img {
   width: 23px;
   height: 23px;
   object-fit: contain;
 }
-.categ_name
-{
+
+.categ_name {
   font-size: 17px;
   font-weight: 400;
   color: rgb(74, 85, 104);
   position: relative;
   line-height: 20px;
 }
-.categ_name::before
-{
+
+.categ_name::before {
   position: absolute;
   content: "";
   width: 0px;
@@ -146,10 +143,11 @@ nav.navbar {
   background: #009fbc;
   transition: all ease-in 0.2s;
 }
-.onhover_categ_list:hover .categ_name::before
-{
+
+.onhover_categ_list:hover .categ_name::before {
   width: 100%;
 }
+
 .onhover_categ_list .categ_list_wrp i.fas.fa-chevron-right {
   margin-top: 4px;
   margin-left: auto;
@@ -160,8 +158,7 @@ nav.navbar {
 
 /* another dropdown */
 
-.onhover_categ_box
-{
+.onhover_categ_box {
   position: absolute;
   left: 270px;
   top: -20px;
@@ -176,34 +173,34 @@ nav.navbar {
   box-shadow: rgb(221, 221, 221) 0px 0px 8px;
   padding: 16px 20px;
 }
-.onhover_categ_list:hover .onhover_categ_box
-{
+
+.onhover_categ_list:hover .onhover_categ_box {
   opacity: 1;
   visibility: visible;
   transform: translateX(0px);
 }
-.onhover_categ_box .categ_headi
-{
+
+.onhover_categ_box .categ_headi {
   font-size: 20px;
   font-weight: 500;
 }
-.onhover_categ_box ul
-{
+
+.onhover_categ_box ul {
   padding-left: 20px;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.onhover_categ_box ul li a
-{
+
+.onhover_categ_box ul li a {
   text-decoration: none;
   font-size: 16px;
   font-weight: 400;
   color: rgb(74, 85, 104);
 }
-.onhover_categ_box ul li:hover a
-{
+
+.onhover_categ_box ul li:hover a {
   color: #000;
 }
 
@@ -758,13 +755,13 @@ td.product-cell img {
   transition: all ease-in 0.2s;
   cursor: pointer;
 }
+
 /* .product-cell .img_wrp
 {
   overflow: hidden;
   border-radius: 10px;
 } */
-td.product-cell img:hover
-{
+td.product-cell img:hover {
   transform: scale(1.1);
 }
 
@@ -908,6 +905,12 @@ td.product-cell img:hover
   .cart-summary {
     margin: auto;
     position: static;
+    max-width: none;
+  }
+
+  .search_categories_sec {
+    margin-right: auto;
+    padding-left: 30px;
   }
 }
 
@@ -942,6 +945,15 @@ td.product-cell img:hover
 
   .footer_cont_wrp {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .categ_dropdown {
+    width: 230px;
+  }
+
+  .onhover_categ_box {
+    left: 220px;
+    width: 230px;
   }
 
   .cart_detail_wrp {
@@ -1138,8 +1150,8 @@ td.product-cell img:hover
     transition: all ease-in 0.2s;
     cursor: pointer;
   }
-  td.product-cell img:hover
-  {
+
+  td.product-cell img:hover {
     transform: scale(1.5);
   }
 
@@ -1149,5 +1161,34 @@ td.product-cell img:hover
 
   .table_head {
     margin-bottom: 7px;
+  }
+
+  .search_categories_sec {
+    display: none;
+  }
+
+  .quantity-controls button {
+    width: 24px;
+    min-height: 24px;
+    min-width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+  .Toastify__toast-container.Toastify__toast-container--top-right {
+    padding: 8px;
+  }
+}
+
+@media screen and (min-width: 1650px) {
+  .container-sm{
+    max-width: 1600px!important;
+  }
+  .home-page
+  {
+    padding: 30px 60px 0px;
+  }
+  .navbar
+  {
+    padding: 20px 60px!important;
   }
 }
