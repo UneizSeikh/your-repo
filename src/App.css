@@ -384,6 +384,7 @@ img.product-img {
   height: 120px;
   transition: all ease-in 0.2s;
   cursor: pointer;
+  object-fit: contain;
 }
 img.product-img:hover
 {
@@ -606,7 +607,6 @@ i.fas.fa-heart {
 
 .go_to_top_btn.show {
   transition: all ease 0.3s;
-
   transform: translateY(0);
 }
 .go_to_top_btn:hover

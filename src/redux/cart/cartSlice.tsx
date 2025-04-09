@@ -58,7 +58,6 @@ const cartSlice = createSlice({
             }
         },
 
-        // ✅ New reducer: update quantity directly
         updateQuantity: (
             state,
             action: PayloadAction<{ id: number; quantity: number }>
@@ -80,7 +79,7 @@ export const {
     removeFromCart,
     incrementQuantity,
     decrementQuantity,
-    updateQuantity, // ✅ Export it here
+    updateQuantity, 
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
