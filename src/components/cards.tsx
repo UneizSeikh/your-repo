@@ -26,6 +26,8 @@ const CardList: React.FC = () => {
     const [cart, setCart] = useState<CartState>({});
     // const [iconChange, setIconChange] = useState(false);
 
+    const [showSuccessFor, setShowSuccessFor] = useState<number[]>([]);
+
     useEffect(() => {
         fetch("https://fakestoreapi.com/products")
             .then((res) => res.json())
@@ -105,6 +107,7 @@ const CardList: React.FC = () => {
                                                 dispatch(decrement());
                                                 toast.error("Item removed from cart.");
                                             }
+                                            setShowSuccessFor((prev) => prev.filter(id => id !== product.id));
                                         }}
                                     >
 
@@ -141,14 +144,29 @@ const CardList: React.FC = () => {
                                         name: product.title,
                                         price: product.price,
                                         imageUrl: product.image,
-                                      }));                                      
-                                }}>
+                                    }));
+
+                                    setShowSuccessFor((prev) => {
+                                        if (!prev.includes(product.id)) {
+                                            return [...prev, product.id];
+                                        }
+                                        return prev;
+                                    });
+                                }}
+                                >
+
                                     <i className="fas fa-bolt"></i> Add to Cart
                                 </div>
-                                
                             )}
-
                         </div>
+
+                        {showSuccessFor.includes(product.id) && (
+                            <div className="success_text">
+                                <i className="fas fa-check-circle"></i> Added To Cart
+                            </div>
+                        )}
+
+
                         <div className="fav-icon" onClick={() => {
                             dispatch(toggleFavoriteCount(product.id)); // update redux state
                             toggleFavorite(product.id); // optional if you want local state too
