@@ -8,7 +8,7 @@ import WishList from './pages/wishList'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/loginpage'
-import SignUp from './pages/signuppage'
+import SignUp from './pages/signup'
 
 
 function App() {
