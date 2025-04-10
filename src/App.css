@@ -1630,11 +1630,11 @@ hr {
 
 @media screen and (min-width: 1550px) {
   .container-sm {
-    max-width: 1600px !important;
+    max-width: 1450px !important;
   }
 
   .home-page {
-    padding: 30px 60px 0px;
+    padding: 30px 40px 0px;
   }
 
   .navbar {
@@ -1643,5 +1643,21 @@ hr {
   .illustration img {
     margin-right: unset;
   }
-  
+  .newsletter-detail
+  {
+    height: 300px;
+  }
+  .news-haedi
+  {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .home-page {
+    padding: 30px 100px 0px;
+  }
+  .navbar {
+    padding: 20px 100px !important;
+  }
 }
