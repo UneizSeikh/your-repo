@@ -1217,6 +1217,54 @@ hr {
   text-decoration: none;
   font-weight: bold;
 }
+.login-container.sign_up_container
+{
+  grid-template-columns: 1fr 1fr;
+  padding: 20px 40px;
+}
+.sign_up_container .name-fields, .mobile-fields
+{
+  display: flex;
+  gap: 20px;
+}
+.phone-group
+{
+  display: flex;
+  width: 106%;
+}
+.phone-group input
+{
+  border-left: 0px!important;
+  border-bottom-left-radius: 0px!important;
+  border-top-left-radius: 0px!important;
+}
+.phone-group select
+{
+  border-color: #ccc;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+  padding: 0px 6px;
+  /* min-width: 40px; */
+}
+.phone-group select:focus-visible
+{
+  outline: none;
+}
+
+.sign_up_container .login-box form input
+{
+  margin-bottom: 0px;
+}
+.sign_up_container .check_box input
+{
+  width: unset;
+}
+.sign_up_container form
+{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
 @media screen and (max-width: 1149px) {
   .login-container
@@ -1261,6 +1309,17 @@ hr {
 
 @media screen and (max-width: 992px) {
 
+  .login-container.sign_up_container
+  {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .sign_up_container .illustration img
+  {
+    margin: 0px auto;
+    margin-top: 30px;
+  }
   .navbar .search_box {
     display: none;
   }
@@ -1319,12 +1378,21 @@ hr {
   .wishlist-cards {
     grid-template-columns: repeat(2, 1fr);
   }
+
 }
 
 @media screen and (max-width: 600px) {
-  .login-container
+  .login-container, .login-container.sign_up_container
   {
     padding: 20px 16px;
+  }
+  .sign_up_container .name-fields, .mobile-fields
+  {
+    flex-direction: column;
+  }
+  .phone-group
+  {
+    width: 100%;
   }
   .illustration img
   {
