@@ -248,10 +248,12 @@ nav.navbar {
 
 .product-detail-wrp {
   display: flex;
+  align-items: center;
 }
 
-.product-detail-wrp .product-detail:last-child .icon {
-  border: none;
+.product-detail-wrp .product-detail:nth-child(2) .icon {
+  border-right: 1px solid #000;
+  border-left: 1px solid #000;
 }
 
 .product-detail a {
@@ -266,9 +268,13 @@ nav.navbar {
   align-items: center;
   gap: 6px;
   padding: 0px 14px 0px 10px;
-  border-right: 1px solid #e7e7e7;
   cursor: pointer;
   position: relative;
+}
+.product-detail.user_detail i.fas.fa-chevron-down {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 1px;
 }
 
 .product-detail .icon i {
@@ -278,7 +284,78 @@ nav.navbar {
 
 .product-detail .icon .name {
   font-size: 14px;
+  color: #000;
 }
+.product-detail.user_detail
+{
+  margin-right: 10px;
+}
+.product-detail.user_detail .icon
+{
+  padding: 0px;
+  border-right: none;
+  position: relative;
+}
+.login_btn
+{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  transition: all ease-in 0.2s;
+  border-radius: 6px;
+}
+.product-detail.user_detail .icon:hover .login_btn
+{
+  background-color: #009fbc;
+}
+.product-detail.user_detail:hover .login_btn .login_icon, .product-detail.user_detail:hover .name
+{
+  color: #fff!important;
+}
+.login_dropdown
+{
+  position: absolute;
+  width: 150px;
+  background: #fff;
+  left: 0;
+  top: 45px;
+  border-radius: 6px;
+  box-shadow: rgb(221, 221, 221) 0px 0px 8px;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all ease-in 0.3s;
+  transform: translateY(20px);
+}
+.product-detail.user_detail .icon:hover .login_dropdown
+{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.login_drop_wrp
+{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.login_drop_wrp .links
+{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #9b9898;
+}
+.login_drop_wrp .links:hover, .login_drop_wrp .links:hover i
+{
+  color: #fd6500!important;
+}
+
 
 .num_badge {
   width: 14px;
@@ -448,7 +525,7 @@ button.slick-arrow.slick-prev {
 }
 
 .slider-container {
-  margin-top: 40px;
+  margin-top: 24px;
 }
 
 .slick-list {
