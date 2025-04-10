@@ -1,7 +1,7 @@
 import Logo from "../assets/images/logo.png";
 import SearchIcon from "../assets/images/search-interface-symbol.png";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CategoryDropdown from "./categoryDropdown";
 
@@ -54,8 +54,8 @@ const Navbar = () => {
               All Categories
             </div>
 
-            <CategoryDropdown/>
-         
+            <CategoryDropdown />
+
           </div>
 
           <div className="search_box">
@@ -67,10 +67,31 @@ const Navbar = () => {
         </div>
 
         <div className="product-detail-wrp">
-          <div className="product-detail">
+          <div className="product-detail user_detail">
             <div className="icon">
-              <i className="fas fa-user-circle"></i>
-              <div className="name">Tim</div>
+              <div className="login_btn">
+                <i className="fas fa-user-circle login_icon"></i>
+                <div className="name">Login</div>
+                <i className="fas fa-chevron-down login_icon"></i>
+              </div>
+
+              <div className="login_dropdown">
+                <div className="login_drop_wrp">
+                  <Link to="/login">
+                    <div className="links">
+                      <i className="fas fa-sign-in-alt"></i>
+                      Login
+                    </div>
+                  </Link>
+
+                  <Link to="/signup">
+                    <div className="links">
+                      <i className="fas fa-user-plus"></i>
+                      Sign Up
+                    </div>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
 

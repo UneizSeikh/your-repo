@@ -7,6 +7,8 @@ import CartPage from './pages/cartpage'
 import WishList from './pages/wishList'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Loginpage from './pages/loginpage'
+import SignUp from './pages/signuppage'
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path='/wishlist' element={<WishList />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/login" element={<Loginpage />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
 
       <Footer />
