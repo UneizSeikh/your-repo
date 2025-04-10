@@ -1112,7 +1112,7 @@ td.product-cell img:hover {
   grid-template-columns: 1.4fr 1fr;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  /* box-shadow: 0 0 20px rgba(0,0,0,0.1); */
   width: 100%;
   margin-top: 16px;
   padding: 20px 100px;

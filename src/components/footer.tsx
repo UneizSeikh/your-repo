@@ -71,7 +71,7 @@ export default function Footer() {
             <div className="copy_right" >
                 <div className="container-sm" >
                     <div className="copy_right_row">
-                        <div>©2024 E-Commerce All Rights Reserved</div>
+                        <div>©2025 E-Commerce All Rights Reserved</div>
                         <div className="flex space-x-4">
                             <FaFacebookF className="text-gray-600 cursor-pointer" />
                             <FaTwitter className="text-gray-600 cursor-pointer" />
