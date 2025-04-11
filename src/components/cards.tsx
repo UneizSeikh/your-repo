@@ -3,14 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
-// import { increment, decrement } from "../redux/counter/counterSlice";
 import { toggleFavorite } from "../redux/favorite/favoriteSlice";
-// import {
-//     addToCart as addToCartAction,
-//     removeFromCart,
-//     updateQuantity,
-// } from "../redux/cart/cartSlice";
-// import { toast } from "react-toastify";
 import { RootState } from "../redux/store";
 import CartButton from "./cartButton";
 
