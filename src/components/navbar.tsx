@@ -4,6 +4,14 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CategoryDropdown from "./categoryDropdown";
+import { useState, useEffect } from "react";
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+}
 
 interface NavItemProps {
   count: number;
@@ -39,6 +47,32 @@ const NavItem = ({ count, iconClass, label, path, emptyMessage }: NavItemProps) 
 const Navbar = () => {
   const cartCount = useSelector((state: any) => state.counter.value);
   const wishlistCount = useSelector((state: any) => state.favorite.favoritesCount);
+  const cartItems = useSelector((state: any) => state.cart.items);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((data: Product[]) => setProducts(data))
+      .catch((error) => console.error("Error fetching products:", error));
+  }, []);
+
+  const filteredProducts = products.filter(
+    (product) => product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setShowSearchResults(e.target.value.length > 0);
+  };
+
+  const handleItemClick = () => {
+    setSearchTerm("");
+    setShowSearchResults(false);
+  };
 
   return (
     <div>
@@ -59,10 +93,42 @@ const Navbar = () => {
           </div>
 
           <div className="search_box">
-            <input placeholder="Search for products, brands, and more" type="text" />
+            <input
+              placeholder="Search for products, brands, and more"
+              type="text"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onBlur={() => setTimeout(() => setShowSearchResults(false), 200)}
+            />
             <div className="search_icon">
               <img src={SearchIcon} alt="Search" />
             </div>
+            {showSearchResults && searchTerm && (
+              <div className="search-results-dropdown">
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      className="search-result-item"
+                      onClick={handleItemClick}
+                    >
+                      <img src={product.image} alt={product.title} className="search-result-image" />
+                      <div className="search-result-details">
+                        <div className="search-result-name">{product.title}</div>
+                        <div className="search-result-price">${product.price}</div>
+                        {cartItems[product.id] && (
+                          <div className="search-result-quantity">
+                            In Cart: {cartItems[product.id].quantity}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="no-results">No products found</div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
