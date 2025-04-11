@@ -1,12 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../redux/store";
 import { incrementQuantity, decrementQuantity, removeFromCart } from "../redux/cart/cartSlice";
+import { selectCartItemsArray } from "../redux/cart/cartSelectors";
 import CartTable from "./cartTable";
 import CartSummary from "./cartSummary";
 
 const MyCart = () => {
-  // Convert the cart items object to an array
-  const cartItems = useSelector((state: RootState) => Object.values(state.cart.items));
+  const cartItems = useSelector(selectCartItemsArray); // memoized now
   const dispatch = useDispatch();
 
   if (cartItems.length === 0) {
@@ -27,7 +26,7 @@ const MyCart = () => {
           onRemove={(id) => dispatch(removeFromCart(id))}
         />
       </div>
-      <CartSummary items={cartItems}/>
+      <CartSummary items={cartItems} />
     </div>
   );
 };
