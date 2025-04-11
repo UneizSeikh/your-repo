@@ -3,15 +3,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "../redux/counter/counterSlice";
+// import { increment, decrement } from "../redux/counter/counterSlice";
 import { toggleFavorite } from "../redux/favorite/favoriteSlice";
-import {
-    addToCart as addToCartAction,
-    removeFromCart,
-    updateQuantity,
-} from "../redux/cart/cartSlice";
-import { toast } from "react-toastify";
+// import {
+//     addToCart as addToCartAction,
+//     removeFromCart,
+//     updateQuantity,
+// } from "../redux/cart/cartSlice";
+// import { toast } from "react-toastify";
 import { RootState } from "../redux/store";
+import CartButton from "./cartButton";
 
 interface Product {
     id: number;
@@ -68,71 +69,13 @@ const CardList: React.FC = () => {
                                 <div className="p-price">From ${product.price}</div>
                             </div>
 
-                            <div className="add-cart-button">
-                                {quantity > 0 ? (
-                                    <div className="cart_counter">
-                                        <div
-                                            className="icon_wrp"
-                                            onClick={() => {
-                                                if (quantity <= 1) {
-                                                    dispatch(removeFromCart(product.id));
-                                                    dispatch(decrement());
-                                                    toast.error("Item removed from cart.");
-                                                } else {
-                                                    dispatch(
-                                                        updateQuantity({
-                                                            id: product.id,
-                                                            quantity: quantity - 1,
-                                                        })
-                                                    );
-                                                }
-                                            }}
-                                        >
-                                            <i className={quantity > 1 ? "far fa-minus" : "fas fa-trash-alt"}></i>
-                                        </div>
-
-                                        <div className="counter_value">{quantity}</div>
-
-                                        <div
-                                            className="icon_wrp"
-                                            onClick={() => {
-                                                dispatch(
-                                                    updateQuantity({
-                                                        id: product.id,
-                                                        quantity: quantity + 1,
-                                                    })
-                                                );
-                                            }}
-                                        >
-                                            <i className="far fa-plus"></i>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div
-                                        className="add_cart_btn"
-                                        onClick={() => {
-                                            dispatch(increment());
-                                            dispatch(
-                                                addToCartAction({
-                                                    id: product.id,
-                                                    name: product.title,
-                                                    price: product.price,
-                                                    imageUrl: product.image,
-                                                })
-                                            );
-                                            toast.success("🛒 Added to Cart!");
-                                        }}
-                                    >
-                                        <i className="fas fa-bolt"></i> Add to Cart
-                                    </div>
-                                )}
-                            </div>
-
-                            {quantity > 0 && (
-                                <div className="success_text">
-                                    <i className="fas fa-check-circle"></i> Added To Cart
-                                </div>
-                            )}
+                            <CartButton
+                                id={product.id}
+                                title={product.title}
+                                price={product.price}
+                                image={product.image}
+                                quantity={quantity}
+                            />
 
                             <div
                                 className="fav-icon"

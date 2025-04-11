@@ -1015,6 +1015,7 @@ td.product-cell img:hover {
   gap: 3px;
   position: absolute;
   bottom: 3px;
+  left: 10px;
 }
 
 /* Wishlist ui */
